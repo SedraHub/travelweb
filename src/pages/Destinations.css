@@ -1,0 +1,613 @@
+/* =========================================================================
+   VIEW 1: GRID DASHBOARD (Neon Cyan Borders, Search, Image Cards)
+   ========================================================================= */
+
+/* Main wrapper for the grid view, occupying the full screen */
+.dest-grid-view {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    position: relative;
+    padding-top: 80px;
+    /* Offset for navbar to avoid overlap */
+    overflow: hidden;
+}
+
+/* Background watermark text (Huge "TRAVELO" behind the neon box) */
+.dest-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20vw;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.02);
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Glowing container (from Image 1) */
+.dest-neon-container {
+    background: rgba(0, 15, 30, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 242, 255, 0.5);
+    border-radius: 24px;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.15), inset 0 0 20px rgba(0, 242, 255, 0.05);
+    padding: 40px;
+    width: 90%;
+    max-width: 1000px;
+    z-index: 10;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Header & Search */
+.dest-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.dest-header h2 {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Search Box Container */
+.dest-search-bar {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    /* slightly visible glass */
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    /* subtle cyan border */
+    border-radius: 30px;
+    /* pill shape */
+    padding: 8px 20px;
+    width: 320px;
+    transition: all 0.3s ease;
+}
+
+/* Glow effect when user clicks inside the search bar */
+.dest-search-bar:focus-within {
+    border-color: #00f2ff;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    background: rgba(0, 242, 255, 0.08);
+}
+
+/* Search Icon */
+.dest-search-bar svg {
+    width: 16px;
+    height: 16px;
+    color: #00f2ff;
+    margin-right: 12px;
+}
+
+/* Actual input field */
+.dest-search-bar input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    outline: none;
+    width: 100%;
+}
+
+.dest-search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.dest-grid {
+    display: grid;
+    /* Automatically creates responsive columns (min 200px each) */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+/* Responsive breakpoints for the grid */
+@media (max-width: 900px) {
+    .dest-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .dest-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Individual Destination Card */
+.dest-card {
+    position: relative;
+    border-radius: 18px;
+    /* High radius for a modern feel */
+    overflow: hidden;
+    height: 340px;
+    /* Increased height to make it portrait/tall like the image */
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth snap on hover */
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Image inside the card */
+.dest-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures image aspect ratio is perfect without stretching */
+    object-position: center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: high-quality;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    filter: brightness(0.8);
+    /* Darkened slightly by default, removed harsh contrast */
+}
+
+/* Hovering scales the image up (parallax zoom) and restores brightness */
+.dest-card:hover img {
+    transform: scale(1.1);
+    filter: brightness(1) contrast(1.1);
+}
+
+/* Text label describing the place */
+.dest-card-label {
+    position: absolute;
+    bottom: 24px;
+    left: 20px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    transition: transform 0.3s ease;
+}
+
+/* Moving the text slightly up when hovered */
+.dest-card:hover .dest-card-label {
+    transform: translateY(-8px);
+}
+
+/* Internal dark gradient overlay inside the card to make text super readable */
+.dest-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Neon bottom glow indicator on hover (Replicates Image 1 glow tab) */
+.dest-card-glow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    width: 60%;
+    height: 6px;
+    /* Thick neon tab */
+    background: #00f2ff;
+    box-shadow: 0 -5px 20px #00f2ff;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+    border-radius: 6px 6px 0 0;
+    /* Rounded tab design */
+    opacity: 0;
+}
+
+/* Pull the glowing tab up to visibility when card is hovered */
+.dest-card:hover .dest-card-glow {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* =======================================
+   PAGINATION DOTS
+   ======================================= */
+.dest-grid-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.dest-grid-pagination span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 242, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.dest-grid-pagination span.active {
+    background: #00f2ff;
+    box-shadow: 0 0 12px #00f2ff;
+    transform: scale(1.2);
+    /* Make active dot slightly larger */
+}
+
+
+/* =========================================================================
+   VIEW 2: IMMERSIVE FULLSCREEN (Parallax, Scrollable Details, Reviews)
+   ========================================================================= */
+
+.dest-immersive {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    /* Overlap everything, including Navbar */
+    background: #000;
+    overflow-y: auto;
+    /* Allow scrolling down! */
+    overflow-x: hidden;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* 
+   FIXED Background layer 
+   It stays pinned to the screen while you scroll, creating a massive parallax effect.
+   The mousemove React logic then pushes it slightly left/right. 
+*/
+.dest-immersive-bg {
+    position: fixed;
+    top: -5vh;
+    left: -5vw;
+    width: 110vw;
+    height: 110vh;
+    background-size: cover;
+    background-position: center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: high-quality;
+    transition: transform 0.1s linear;
+    z-index: 1;
+    will-change: transform;
+}
+
+/* Fixed cinematic overlay */
+.dest-immersive-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(to right, rgba(10, 30, 54, 0.6) 0%, rgba(10, 30, 54, 0.2) 50%, rgba(10, 30, 54, 0.6) 100%),
+        radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Wrap all scrollable content (Hero + Details below it) */
+.dest-scrollable-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+/* 
+   HERO SCREEN (First 100vh)
+   What the user sees before scrolling down 
+*/
+.dest-hero-screen {
+    width: 100%;
+    height: 100vh;
+    /* Takes full window height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Typography elements */
+.dest-hero-typo {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+    /* Let clicks pass through */
+}
+
+.dest-immersive-country {
+    font-size: 3vw;
+    font-weight: 300;
+    letter-spacing: 0.8em;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    transform: translateY(20px);
+}
+
+.dest-immersive-place {
+    font-size: 14vw;
+    font-weight: 900;
+    letter-spacing: -3px;
+    color: white;
+    margin: 0;
+    line-height: 0.9;
+    text-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    position: relative;
+    text-transform: uppercase;
+}
+
+/* Fixed Back Button Strategy */
+.dest-back-btn {
+    position: fixed;
+    /* Keep it always accessible top-left */
+    top: 40px;
+    left: 60px;
+    z-index: 50;
+    background: rgba(0, 8, 20, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dest-back-btn:hover {
+    background: rgba(0, 242, 255, 0.2);
+    border-color: #00f2ff;
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+/* Left side navigation dots fixed to the screen */
+.dest-immersive-dots {
+    position: fixed;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 20;
+}
+
+.dest-immersive-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.dest-immersive-dots span.active {
+    height: 24px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Scroll indicator encouraging user to scroll down */
+.dest-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.7;
+    animation: bounce 2s infinite ease-in-out;
+    pointer-events: none;
+}
+
+.dest-scroll-indicator span {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+}
+
+.scroll-arrow {
+    font-size: 1.5rem;
+    color: #00f2ff;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* 
+   DETAILS & REVIEWS SECTION 
+   The luxurious panel you scroll down into
+*/
+.dest-details-section {
+    min-height: 100vh;
+    padding: 120px 80px 80px 80px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(10, 30, 54, 0.85) 20%, rgba(10, 30, 54, 1) 100%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    position: relative;
+    z-index: 10;
+}
+
+@media (max-width: 1024px) {
+    .dest-details-section {
+        grid-template-columns: 1fr;
+        padding: 80px 40px;
+    }
+}
+
+.dest-section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 24px;
+    position: relative;
+    display: inline-block;
+}
+
+.dest-section-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 40px;
+    height: 4px;
+    background: #00f2ff;
+    border-radius: 2px;
+}
+
+/* Left Column: Place Description & Stats */
+.dest-info-column {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.dest-description {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+}
+
+.dest-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.dest-stat-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.dest-stat-box:hover {
+    background: rgba(0, 242, 255, 0.05);
+    border-color: rgba(0, 242, 255, 0.3);
+    transform: translateY(-5px);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.stat-value.highlight {
+    color: #f59e0b;
+    /* Yellow star rating color */
+}
+
+/* Right Column: User Reviews */
+.dest-reviews-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.dest-reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.dest-review-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.3s ease;
+}
+
+.dest-review-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.review-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(0, 242, 255, 0.5);
+}
+
+.review-meta {
+    flex-grow: 1;
+}
+
+.review-meta h4 {
+    margin: 0 0 4px 0;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.review-date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.review-stars {
+    color: #f59e0b;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.review-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    margin: 0;
+}

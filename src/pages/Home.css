@@ -1,0 +1,271 @@
+.home-page {
+    background: transparent;
+    min-height: 100vh;
+    color: white;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* FIX: Pushes places exactly to the right */
+    padding: 0 80px;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow: hidden;
+}
+
+/* Optional soft glow from bottom */
+.home-page::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60vw;
+    height: 300px;
+    background: radial-gradient(ellipse at center, rgba(0, 242, 255, 0.25) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Countries List */
+.home-countries {
+    position: absolute;
+    top: 140px;
+    left: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    z-index: 50;
+}
+
+.home-country-btn {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: left;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 8px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+
+.home-index {
+    font-size: 8px;
+    color: rgba(0, 242, 255, 0.4);
+    font-family: var(--mono);
+    opacity: 0.5;
+}
+
+.home-label {
+    position: relative;
+    padding-left: 10px;
+}
+
+.home-country-btn.active .home-label {
+    color: white;
+    transform: translateX(8px);
+}
+
+.home-country-btn.active .home-index {
+    opacity: 1;
+    color: #00f2ff;
+}
+
+.home-country-btn:not(.active) {
+    color: rgba(255, 255, 255, 0.15);
+}
+
+.home-country-btn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 0;
+    background: #00f2ff;
+    transition: height 0.3s ease;
+    box-shadow: 0 0 10px #00f2ff;
+}
+
+.home-country-btn.active::before {
+    height: 100%;
+}
+
+.home-country-btn:hover:not(.active) {
+    color: rgba(255, 255, 255, 0.6);
+    padding-left: 5px;
+}
+
+/* Vertical Line */
+.home-line {
+    position: absolute;
+    right: 380px; /* adjusted to be between globe and place names */
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.05); /* very soft line */
+    z-index: 10;
+}
+
+/* Centered Globe */
+.home-globe-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    pointer-events: auto;
+    filter: drop-shadow(0 0 50px rgba(0, 242, 255, 0.15));
+}
+
+/* Places List */
+.home-places {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: flex-end;
+    margin-right: -4px; /* offset for exact alignment with the line */
+}
+
+.home-place-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    height: 48px;
+}
+
+/* Image Popup */
+.home-img-popup {
+    position: absolute;
+    right: 100%;
+    margin-right: 24px;
+    display: flex;
+    align-items: center;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 50;
+    opacity: 0;
+    transform: translateX(20px);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.home-img-popup.visible {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.home-img-wrap {
+    width: 208px;
+    height: 144px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.home-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%);
+    transition: all 0.5s ease;
+}
+
+.home-place-item:hover .home-img-wrap img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+/* Dot Indicator */
+.home-dot {
+    position: absolute;
+    right: -1px; /* perfectly aligns center of dot with 1px vertical line */
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid #0369a1; 
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 30;
+}
+
+.home-dot.active {
+    background-color: #00f2ff;
+    border-color: #00f2ff;
+    transform: scale(1.6);
+    box-shadow: 0 0 16px rgba(0, 242, 255, 0.8);
+}
+
+.home-dot:not(.active) {
+    background-color: rgba(0, 242, 255, 0.2);
+}
+
+/* Hover joining line connecting text to dot */
+.home-place-item::after {
+    content: '';
+    position: absolute;
+    right: 4px;
+    width: 0;
+    height: 1px;
+    background: #00f2ff;
+    transition: width 0.4s ease;
+    z-index: 25;
+}
+
+.home-place-item:hover::after {
+    width: 32px;
+}
+
+/* Place Name */
+.home-name {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.4s ease;
+    padding-right: 42px; /* space for dot and hover line */
+}
+
+.home-place-label {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-align: right;
+}
+
+.home-place-index {
+    font-size: 9px;
+    color: rgba(0, 242, 255, 0.3);
+    font-family: var(--mono);
+    transition: all 0.3s ease;
+}
+
+.home-name.active {
+    transform: translateX(-12px);
+}
+
+.home-name.active .home-place-label {
+    font-weight: 800;
+    color: white;
+}
+
+.home-name.active .home-place-index {
+    color: #00f2ff;
+    opacity: 1;
+}
+
+.home-name:not(.active) .home-place-label {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.home-name:not(.active):hover .home-place-label {
+    color: rgba(255, 255, 255, 0.6);
+}

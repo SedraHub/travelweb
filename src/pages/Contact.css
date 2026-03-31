@@ -1,0 +1,339 @@
+/* =========================================================================
+   CONTACT PAGE: VITALITY THEME
+   ========================================================================= */
+
+.contact-page {
+    min-height: 100vh;
+    padding: 140px 5% 80px 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+}
+
+/* 
+   Animated Background Orbs for extreme vitality 
+*/
+.contact-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 0;
+    pointer-events: none;
+    animation: orbPulse 10s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    width: 600px;
+    height: 600px;
+    background: rgba(0, 242, 255, 0.15);
+    top: -200px;
+    left: -200px;
+}
+
+.orb-2 {
+    width: 500px;
+    height: 500px;
+    background: rgba(124, 58, 237, 0.15); /* Deep purple matching aesthetic */
+    bottom: -150px;
+    right: -100px;
+    animation-delay: -5s;
+}
+
+@keyframes orbPulse {
+    0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
+    50% { transform: scale(1.2) translate(50px, -50px); opacity: 0.8; }
+    100% { transform: scale(0.9) translate(-50px, 50px); opacity: 0.5; }
+}
+
+/* Stagger entrance animations for children */
+.stagger-1 { animation: slideUp 0.6s ease-out forwards; opacity: 0; transform: translateY(30px); }
+.stagger-2 { animation: slideUp 0.6s ease-out 0.1s forwards; opacity: 0; transform: translateY(30px); }
+.stagger-3 { animation: slideUp 0.6s ease-out 0.2s forwards; opacity: 0; transform: translateY(30px); }
+.stagger-4 { animation: slideRight 0.8s ease-out 0.3s forwards; opacity: 0; transform: translateX(40px); }
+
+@keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideRight {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* 
+   MAIN CONTAINER (Dual-pane)
+*/
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 80px;
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    z-index: 10; /* Above orbs */
+}
+
+@media (max-width: 968px) {
+    .contact-container {
+        flex-direction: column;
+        gap: 60px;
+    }
+}
+
+/* =========================================================================
+   LEFT PANE: INFO & METHODS
+   ========================================================================= */
+
+.contact-info-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -2px;
+}
+
+.neon-dot {
+    color: #00f2ff;
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.8);
+    animation: softPulse 2s infinite;
+}
+
+.contact-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 450px;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Glass interactive cards */
+.contact-method-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 24px;
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+
+.contact-method-card:hover {
+    background: rgba(0, 242, 255, 0.05);
+    border-color: rgba(0, 242, 255, 0.4);
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(0, 242, 255, 0.1);
+}
+
+.method-icon-wrap {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00f2ff;
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.contact-method-card:hover .method-icon-wrap {
+    transform: scale(1.1) rotate(5deg);
+    color: white;
+    background: #00f2ff;
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+}
+
+.method-text h3 {
+    margin: 0 0 4px 0;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.method-text p {
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    font-size: 1rem;
+}
+
+
+/* =========================================================================
+   RIGHT PANE: GLOWING FORM WITH FLOATING LABELS
+   ========================================================================= */
+
+.contact-form-panel {
+    flex: 1;
+    width: 100%;
+}
+
+.form-glass-card {
+    background: rgba(0, 15, 30, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 242, 255, 0.3); /* Stronger neon edge */
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 242, 255, 0.05);
+}
+
+@media (max-width: 600px) {
+    .form-glass-card {
+        padding: 30px;
+    }
+}
+
+.form-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.form-header-icon {
+    color: #00f2ff;
+    width: 28px;
+    height: 28px;
+}
+
+.form-glass-card h2 {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Modern Input Groups */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 0;
+    color: white;
+    font-size: 1.1rem;
+    outline: none;
+    font-family: inherit;
+    resize: none; /* For text area */
+    transition: border-color 0.3s ease;
+}
+
+/* The Label acts as a placeholder initially */
+.input-group label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.1rem;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Floating Label Logic: If focused or NOT showing placeholder (meaning it has text) */
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label,
+.input-group textarea:focus ~ label,
+.input-group textarea:not(:placeholder-shown) ~ label {
+    top: -20px;
+    font-size: 0.85rem;
+    color: #00f2ff;
+    font-weight: 500;
+}
+
+/* Bottom Glow line simulating focus */
+.input-glow-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: #00f2ff;
+    transition: width 0.4s ease;
+    box-shadow: 0 0 10px #00f2ff;
+}
+
+.input-group input:focus ~ .input-glow-line,
+.input-group textarea:focus ~ .input-glow-line {
+    width: 100%;
+}
+
+/* Neon Submit Button */
+.neon-submit-btn {
+    margin-top: 10px;
+    background: transparent;
+    border: 2px solid #00f2ff;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 16px 32px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+/* Glow effect underneath text */
+.neon-submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: rgba(0, 242, 255, 0.2);
+    z-index: -1;
+    transition: width 0.4s ease;
+}
+
+.neon-submit-btn:hover::before {
+    width: 100%;
+}
+
+.neon-submit-btn:hover {
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.5), inset 0 0 10px rgba(0, 242, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.send-icon {
+    transition: transform 0.3s ease;
+    color: #00f2ff;
+}
+
+.neon-submit-btn:hover .send-icon {
+    transform: translateX(4px) translateY(-4px); /* Launch animation */
+}
