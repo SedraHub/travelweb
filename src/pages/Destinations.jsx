@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Destinations.css";
+import { useLocation } from "react-router-dom";
 
 // Locally hosted high-fidelity 4K assets
 import imgCappadocia from '../assets/destinations/capadocia.webp';
@@ -11,6 +12,12 @@ import imgLakeComo from '../assets/destinations/LAKECOMO.webp';
 import imgMountFuji from '../assets/destinations/MOUNTFUJI.webp';
 import imgShibuya from '../assets/destinations/SHIBUYA.webp';
 import imgPosphorus from '../assets/destinations/bosphorus.webp';
+import imgAlDisah from '../assets/destinations/al-disah.webp';
+import imgGrindelwald from '../assets/destinations/grindelwald.webp';
+import imgOeschinensee from '../assets/destinations/oeschinensee.webp';
+import imgRomeColosseum from '../assets/destinations/rome-colosseum.webp';
+import imgAmalfiCoast from '../assets/destinations/amalfi-coast.webp';
+import imgKinkakuji from '../assets/destinations/kinkakuji.webp';
 // ==========================================
 // CENTRALIZED DATA (Aligned with Home.jsx Map)
 // ==========================================
@@ -147,7 +154,93 @@ const DESTINATIONS = [
         reviews: [
             { name: "Liam B.", avatar: "https://i.pravatar.cc/150?img=13", rating: 5, date: "September 2025", text: "The energy here at night is completely unmatched. Izakayas, bright lights, and endless shopping." }
         ]
-    }
+    },
+    {
+        id: "kinkakuji",
+        country: "JAPAN",
+        place: "KINKAKU-JI",
+        img: imgKinkakuji,
+        thumb: imgKinkakuji,
+        rating: "4.8",
+        weather: "18°C",
+        duration: "3-5 Days",
+        description: "Kinkaku-ji, officially named Rokuon-ji, is a Zen Buddhist temple in Kyoto, Japan. It is one of the most famous sights in Kyoto, and is known for its stunning architecture and beautiful gardens. The temple is a UNESCO World Heritage Site and is a must-visit for anyone traveling to Kyoto.",
+        reviews: [
+            { name: "Liam B.", avatar: "https://i.pravatar.cc/150?img=13", rating: 5, date: "September 2025", text: "The energy here at night is completely unmatched. Izakayas, bright lights, and endless shopping." }
+        ]
+    },
+    {
+        id: "grindelwald",
+        country: "SWITZERLAND",
+        place: "GRINDELWALD",
+        img: imgGrindelwald,
+        thumb: imgGrindelwald,
+        rating: "4.8",
+        weather: "18°C",
+        duration: "3-5 Days",
+        description: "Grindelwald is a village in the Bernese Alps of Switzerland. It is a popular tourist destination, known for its stunning mountain scenery and outdoor activities. The village is located at the foot of the Eiger mountain, and is a popular base for hikers and skiers.",
+        reviews: [
+            { name: "Liam B.", avatar: "https://i.pravatar.cc/150?img=13", rating: 5, date: "September 2025", text: "The energy here at night is completely unmatched. Izakayas, bright lights, and endless shopping." }
+        ]
+    },
+    {
+        id: "oeschinensee",
+        country: "SWITZERLAND",
+        place: "OESCHINENSEE",
+        img: imgOeschinensee,
+        thumb: imgOeschinensee,
+        rating: "4.8",
+        weather: "18°C",
+        duration: "3-5 Days",
+        description: "Oeschinensee is a stunning alpine lake in the Bernese Alps of Switzerland. Located above the village of Kandersteg, it is renowned for its turquoise waters, dramatic cliff surroundings, and pristine natural beauty. A UNESCO World Heritage Site, the lake is accessible via a gondola ride followed by a short walk, making it a perfect destination for nature lovers and hikers seeking breathtaking Swiss landscapes.",
+        reviews: [
+            { name: "Liam B.", avatar: "https://i.pravatar.cc/150?img=13", rating: 5, date: "September 2025", text: "The energy here at night is completely unmatched. Izakayas, bright lights, and endless shopping." }
+        ]
+    },
+    {
+        id: "rome-colosseum",
+        country: "ITALY",
+        place: "ROME COLOSSEUM",
+        img: imgRomeColosseum,
+        thumb: imgRomeColosseum,
+        rating: "4.7",
+        weather: "22°C",
+        duration: "3-5 Days",
+        description: "The Colosseum, also known as the Flavian Amphitheatre, is a massive oval amphitheatre in the center of Rome, Italy. Built between 70-80 AD, it is the largest ancient amphitheatre ever constructed and could hold an estimated 50,000 to 80,000 spectators. Famous for hosting gladiatorial contests, public spectacles, and dramatic performances, it remains an iconic symbol of Imperial Rome and a must-visit historical landmark.",
+        reviews: [
+            { name: "Sophia W.", avatar: "https://i.pravatar.cc/150?img=20", rating: 5, date: "May 2025", text: "Renting a classic wooden boat to tour the villas is highly recommended. The food is incredible." },
+            { name: "Leo R.", avatar: "https://i.pravatar.cc/150?img=60", rating: 4, date: "June 2025", text: "Gorgeous, but can get quite busy during the summer. Varenna is my favorite town." }
+        ]
+    },
+    {
+        id: "amalfi-coast",
+        country: "ITALY",
+        place: "AMALFI COAST",
+        img: imgAmalfiCoast,
+        thumb: imgAmalfiCoast,
+        rating: "4.7",
+        weather: "22°C",
+        duration: "3-5 Days",
+        description: "The Amalfi Coast, located in Southern Italy's Campania region, is a stunning stretch of coastline renowned for its dramatic cliffs, pastel-colored villages, and azure waters. A UNESCO World Heritage Site, it features picturesque towns like Positano, Amalfi, and Ravello, connected by winding roads that offer breathtaking views at every turn. Famous for its lemon groves, terraced vineyards, and vibrant Mediterranean atmosphere, it's a premier destination for luxury travel and scenic beauty.",
+        reviews: [
+            { name: "Sophia W.", avatar: "https://i.pravatar.cc/150?img=20", rating: 5, date: "May 2025", text: "Renting a classic wooden boat to tour the villas is highly recommended. The food is incredible." },
+            { name: "Leo R.", avatar: "https://i.pravatar.cc/150?img=60", rating: 4, date: "June 2025", text: "Gorgeous, but can get quite busy during the summer. Varenna is my favorite town." }
+        ]
+    },
+    {
+        id: "al-disah",
+        country: "SAUDI ARABIA",
+        place: "AL-DISAH",
+        img: imgAlDisah,
+        thumb: imgAlDisah,
+        rating: "4.8",
+        weather: "18°C",
+        duration: "3-5 Days",
+        description: "Al-Disah is a stunning valley located in the Tabuk Province of northwestern Saudi Arabia. Known for its dramatic sandstone mountains, lush palm groves, and natural springs, it offers a breathtaking landscape that contrasts with the surrounding desert terrain.",
+        reviews: [
+            { name: "Liam B.", avatar: "https://i.pravatar.cc/150?img=13", rating: 5, date: "September 2025", text: "The energy here at night is completely unmatched. Izakayas, bright lights, and endless shopping." }
+        ]
+    },
 ];
 
 
@@ -160,6 +253,7 @@ function Destinations() {
 
     // Parallax Coordinates tracker
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const location = useLocation();
 
     // Grid View variables
     const [searchQuery, setSearchQuery] = useState("");
@@ -169,6 +263,17 @@ function Destinations() {
     // ==========================================
     // PARALLAX EFFECT LOGIC
     // ==========================================
+    useEffect(() => {
+        if (location.state?.id) {
+            const found = DESTINATIONS.find(
+                (d) => d.id === location.state.id
+            );
+
+            if (found) {
+                setSelectedDest(found);
+            }
+        }
+    }, [location.state]);
     useEffect(() => {
         if (!selectedDest) return;
 
@@ -202,6 +307,29 @@ function Destinations() {
         setCurrentPage(0);
     }, [searchQuery]);
 
+
+    useEffect(() => {
+        if (selectedDest) return; // detail view açıkken çalışmasın
+
+        const handleKeyDown = (e) => {
+            // input içindeyken çalışmasın
+            if (["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
+
+            if (e.key === "ArrowRight") {
+                setCurrentPage((prev) => (prev + 1) % totalPages);
+            }
+
+            if (e.key === "ArrowLeft") {
+                setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [totalPages, selectedDest]);
     // ==========================================
     // VIEW 2: IMMERSIVE SCROLLABLE VIEW (With Details & Reviews)
     // ==========================================

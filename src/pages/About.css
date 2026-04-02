@@ -5,7 +5,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 100px 16px 48px; /* Offset for navbar */
+    padding: 100px 16px 48px;
+    /* Offset for navbar */
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     box-sizing: border-box;
     position: relative;
@@ -21,7 +22,7 @@
     width: 200vw;
     height: 200vh;
     background: radial-gradient(circle at center, rgba(0, 242, 255, 0.05) 0%, transparent 60%),
-                radial-gradient(circle at top right, rgba(124, 58, 237, 0.05) 0%, transparent 60%);
+        radial-gradient(circle at top right, rgba(124, 58, 237, 0.05) 0%, transparent 60%);
     pointer-events: none;
     z-index: 0;
     animation: glowRotate 20s linear infinite;
@@ -285,7 +286,8 @@
     border-color: rgba(0, 242, 255, 0.5);
     color: #00f2ff;
     box-shadow: 0 0 14px rgba(0, 242, 255, 0.3);
-    transform: translateY(-4px) scale(1.05); /* Vitality punch */
+    transform: translateY(-4px) scale(1.05);
+    /* Vitality punch */
 }
 
 /* Right: Globe */
@@ -692,7 +694,7 @@
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(0, 242, 255, 0.3);
     transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .ab-info-item:hover .ab-info-icon {
@@ -756,9 +758,11 @@
 }
 
 .ab-team-card:hover {
-    background: rgba(255, 255, 255, 0.08); /* slightly brighter */
+    background: rgba(255, 255, 255, 0.08);
+    /* slightly brighter */
     border-color: var(--accent);
-    transform: translateX(10px) translateY(-2px); /* vitality float */
+    transform: translateX(10px) translateY(-2px);
+    /* vitality float */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 

@@ -7,10 +7,19 @@
     padding: 140px 5% 80px 5%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    background: transparent;
+    align-items: flex-start;
+
+
+    overflow-y: auto;
+
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+
+.contact-page::-webkit-scrollbar {
+    display: none;
 }
 
 /* 
@@ -36,29 +45,67 @@
 .orb-2 {
     width: 500px;
     height: 500px;
-    background: rgba(124, 58, 237, 0.15); /* Deep purple matching aesthetic */
+    background: rgba(124, 58, 237, 0.15);
+    /* Deep purple matching aesthetic */
     bottom: -150px;
     right: -100px;
     animation-delay: -5s;
 }
 
 @keyframes orbPulse {
-    0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
-    50% { transform: scale(1.2) translate(50px, -50px); opacity: 0.8; }
-    100% { transform: scale(0.9) translate(-50px, 50px); opacity: 0.5; }
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.2) translate(50px, -50px);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(0.9) translate(-50px, 50px);
+        opacity: 0.5;
+    }
 }
 
 /* Stagger entrance animations for children */
-.stagger-1 { animation: slideUp 0.6s ease-out forwards; opacity: 0; transform: translateY(30px); }
-.stagger-2 { animation: slideUp 0.6s ease-out 0.1s forwards; opacity: 0; transform: translateY(30px); }
-.stagger-3 { animation: slideUp 0.6s ease-out 0.2s forwards; opacity: 0; transform: translateY(30px); }
-.stagger-4 { animation: slideRight 0.8s ease-out 0.3s forwards; opacity: 0; transform: translateX(40px); }
+.stagger-1 {
+    animation: slideUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.stagger-2 {
+    animation: slideUp 0.6s ease-out 0.1s forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.stagger-3 {
+    animation: slideUp 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.stagger-4 {
+    animation: slideRight 0.8s ease-out 0.3s forwards;
+    opacity: 0;
+    transform: translateX(40px);
+}
 
 @keyframes slideUp {
-    to { opacity: 1; transform: translateY(0); }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
 @keyframes slideRight {
-    to { opacity: 1; transform: translateX(0); }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* 
@@ -72,7 +119,8 @@
     width: 100%;
     max-width: 1200px;
     position: relative;
-    z-index: 10; /* Above orbs */
+    z-index: 10;
+    /* Above orbs */
 }
 
 @media (max-width: 968px) {
@@ -189,7 +237,8 @@
     background: rgba(0, 15, 30, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 242, 255, 0.3); /* Stronger neon edge */
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    /* Stronger neon edge */
     border-radius: 24px;
     padding: 50px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 242, 255, 0.05);
@@ -243,7 +292,8 @@ form {
     font-size: 1.1rem;
     outline: none;
     font-family: inherit;
-    resize: none; /* For text area */
+    resize: none;
+    /* For text area */
     transition: border-color 0.3s ease;
 }
 
@@ -259,10 +309,10 @@ form {
 }
 
 /* Floating Label Logic: If focused or NOT showing placeholder (meaning it has text) */
-.input-group input:focus ~ label,
-.input-group input:not(:placeholder-shown) ~ label,
-.input-group textarea:focus ~ label,
-.input-group textarea:not(:placeholder-shown) ~ label {
+.input-group input:focus~label,
+.input-group input:not(:placeholder-shown)~label,
+.input-group textarea:focus~label,
+.input-group textarea:not(:placeholder-shown)~label {
     top: -20px;
     font-size: 0.85rem;
     color: #00f2ff;
@@ -281,8 +331,8 @@ form {
     box-shadow: 0 0 10px #00f2ff;
 }
 
-.input-group input:focus ~ .input-glow-line,
-.input-group textarea:focus ~ .input-glow-line {
+.input-group input:focus~.input-glow-line,
+.input-group textarea:focus~.input-glow-line {
     width: 100%;
 }
 
@@ -335,5 +385,6 @@ form {
 }
 
 .neon-submit-btn:hover .send-icon {
-    transform: translateX(4px) translateY(-4px); /* Launch animation */
+    transform: translateX(4px) translateY(-4px);
+    /* Launch animation */
 }

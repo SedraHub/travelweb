@@ -1,94 +1,353 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useNavigate } from "react-router-dom";
-import "./Home.css";
-import Globe3D from "../components/Globe3D";
 
-function Home() {
-    const navigate = useNavigate();
-    const [selectedCountry, setSelectedCountry] = useState("TURKEY");
-    const [hoveredPlace, setHoveredPlace] = useState(null);
+import imgCappadocia from '../assets/destinations/capadocia.webp';
+import imgUzungol from '../assets/destinations/uzungol.webp';
+import imgAlUla from '../assets/destinations/al-ula.webp';
+import imgShebara from '../assets/destinations/shebara.webp';
+import imgZermatt from '../assets/destinations/ZERMATT.webp';
+import imgLakeComo from '../assets/destinations/LAKECOMO.webp';
+import imgMountFuji from '../assets/destinations/MOUNTFUJI.webp';
+import imgShibuya from '../assets/destinations/SHIBUYA.webp';
+import imgPosphorus from '../assets/destinations/bosphorus.webp';
+import imgAlDisah from '../assets/destinations/al-disah.webp';
+import imgGrindelwald from '../assets/destinations/grindelwald.webp';
+import imgOeschinensee from '../assets/destinations/oeschinensee.webp';
+import imgRomeColosseum from '../assets/destinations/rome-colosseum.webp';
+import imgAmalfiCoast from '../assets/destinations/amalfi-coast.webp';
+import imgKinkakuji from '../assets/destinations/kinkakuji.webp';
 
-    const countriesData = {
-        TURKEY: [
-            { id: 1, name: "CAPPADOCIA", img: "https://images.unsplash.com/photo-1695415683093-ae5f213ea898?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0" },
-            { id: 2, name: "UZUNGOL", img: "https://i.pinimg.com/1200x/59/6e/43/596e43839a722f57c883eaf14f2fc2c7.jpg" },
-            { id: 3, name: "BOSPHORUS", img: "https://i.pinimg.com/1200x/c1/93/70/c19370e3f6e6b228f7267c55a8754494.jpg" },
-        ],
-        SAUDI: [
-            { id: 4, name: "AL-ULA", img: "https://images.unsplash.com/photo-1681419671941-aa9bc9df0bfb?w=500" },
-            { id: 5, name: "SHEBARA", img: "https://i.pinimg.com/736x/e4/cd/b3/e4cdb35c85ec751d717963c8299e75e0.jpg" },
-            { id: 6, name: "AL-DISAH", img: "https://i.pinimg.com/736x/b0/47/cb/b047cba9ee4d98e445d09c0a6c50b1a5.jpg" }
-        ],
-        SWITZERLAND: [
-            { id: 7, name: "ZERMATT", img: "https://i.pinimg.com/736x/4b/b8/63/4bb8630d85665e3996f8e4c6757bbd81.jpg" },
-            { id: 8, name: "GRINDELWALD", img: "https://i.pinimg.com/736x/c7/d3/ea/c7d3ea7b2b6587048139ddcbee1d5f07.jpg" },
-            { id: 9, name: "OESCHINENSEE", img: "https://i0.wp.com/microtripping.com/wp-content/uploads/2016/10/dsc_0578.jpg" }
-        ],
-        ITALY: [
-            { id: 10, name: "LAKE COMO", img: "https://i.pinimg.com/1200x/db/b7/8e/dbb78eb5c26aa429f500c93aa2658c79.jpg" },
-            { id: 11, name: "ROME COLOSSEUM", img: "https://tourismmedia.italia.it/is/image/mitur/20220127150143-colosseo-roma-lazio-shutterstock-756032350-1?wid=1600&hei=900&fit=constrain,1&fmt=webp" },
-            { id: 12, name: "AMALFI COAST", img: "https://i.pinimg.com/736x/b1/75/27/b175272a1d3094a43e82efd3d299a226.jpg" }
-        ],
-        JAPAN: [
-            { id: 13, name: "MOUNT FUJI", img: "https://i.pinimg.com/1200x/d2/2d/3f/d22d3fbdb5f38a449dbef983f7e72e69.jpg" },
-            { id: 14, name: "SHIBUYA", img: "https://i.pinimg.com/736x/33/1b/43/331b437dd876a3f5b3e5aaec83f96264.jpg" },
-            { id: 15, name: "KINAKU-JI", img: "https://kinkakujitemple.com/wp-content/uploads/2024/11/kinkakuji-temple-golden-pavilion-kyoto-japan-summer-view-1.jpg" }
-        ]
+import '../App.css';
+
+const countriesData = [
+  {
+    name: "TURKEY", color: "#e63946", lat: 39, lon: 35,
+    cities: [{
+      id: "cappadocia",
+      name: "CAPADOCIA",
+      image: imgCappadocia,
+    },
+    {
+      id: "uzungol",
+      name: "UZUNGÖL",
+      image: imgUzungol,
+    },
+    {
+      id: "bosphorus",
+      name: "BOSPHORUS",
+      image: imgPosphorus,
+    }]
+  },
+  {
+    name: "SAUDI ARABIA", color: "#f4a261", lat: 24, lon: 45,
+    cities: [{
+      id: "al-ula",
+      name: "AL-ULA",
+      image: imgAlUla,
+    },
+    {
+      id: "shebara",
+      name: "SHEBARA",
+      image: imgShebara,
+    },
+    {
+      id: "al-disah",
+      name: "AL-DISAH",
+      image: imgAlDisah,
+    }]
+  },
+  {
+    name: "SWITZERLAND", color: "#2a9d8f", lat: 47, lon: 8,
+    cities: [{
+      id: "zermatt",
+      name: "ZERMATT",
+      image: imgZermatt,
+    },
+    {
+      id: "grindelwald",
+      name: "GRINDELWALD",
+      image: imgGrindelwald,
+    },
+    {
+      id: "oeschinensee",
+      name: "OESCHINENSEE",
+      image: imgOeschinensee,
+    }]
+  },
+  {
+    name: "ITALY", color: "#e9c46a", lat: 42, lon: 12,
+    cities: [{
+      id: "lake-como",
+      name: "LAKE COMO",
+      image: imgLakeComo,
+    },
+    {
+      id: "rome-colosseum",
+      name: "ROME COLOSSEUM",
+      image: imgRomeColosseum,
+    },
+    {
+      id: "amalfi-coast",
+      name: "AMALFI COAST",
+      image: imgAmalfiCoast,
+    }]
+  },
+  {
+    name: "JAPAN", color: "#ff6b9d", lat: 36, lon: 138,
+    cities: [{
+      id: "mount-fuji",
+      name: "MOUNT FUJI",
+      image: imgMountFuji,
+    },
+    {
+      id: "shibuya",
+      name: "SHIBUYA",
+      image: imgShibuya,
+    },
+    {
+      id: "kinkakuji",
+      name: "KINKAKU-JI",
+      image: imgKinkakuji,
+    }]
+  },
+];
+
+const Home = () => {
+  const globeRef = useRef();
+  const controlsRef = useRef();
+  const rendererRef = useRef();
+  const markersRef = useRef([]);
+  const cameraRef = useRef();
+  const [selected, setSelected] = useState(null);
+  const [hovered, setHovered] = useState(null);
+
+  const [hoveredCity, setHoveredCity] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 1000);
+    cameraRef.current = camera;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    rendererRef.current = renderer;
+
+    if (globeRef.current) {
+      globeRef.current.innerHTML = '';
+      globeRef.current.appendChild(renderer.domElement);
+    }
+    const globeGroup = new THREE.Group();
+    scene.add(globeGroup);
+    const loader = new THREE.TextureLoader();
+    const earthTex = loader.load('https://threejs.org/examples/textures/land_ocean_ice_cloud_2048.jpg');
+    const specTex = loader.load('https://threejs.org/examples/textures/earth_specular_2048.jpg');
+
+    const globe = new THREE.Mesh(
+      new THREE.SphereGeometry(1.9, 64, 64),
+      new THREE.MeshPhongMaterial({
+        map: earthTex,
+        specularMap: specTex,
+        specular: new THREE.Color(0x334466),
+        shininess: 15,
+      }));
+    globeGroup.add(globe);
+    const atmosMesh = new THREE.Mesh(
+      new THREE.SphereGeometry(1.9, 64, 64),
+      new THREE.MeshPhongMaterial({
+        color: 0x3399ff,
+        transparent: true,
+        opacity: 0.07,
+        side: THREE.FrontSide,
+      })
+    );
+    globeGroup.add(atmosMesh);
+    const glowMesh = new THREE.Mesh(
+      new THREE.SphereGeometry(1.97, 64, 64),
+      new THREE.MeshPhongMaterial({
+        color: 0x0055cc,
+        transparent: true,
+        opacity: 0.05,
+        side: THREE.BackSide,
+      })
+    );
+    scene.add(glowMesh);
+    const markersGroup = new THREE.Group();
+    globeGroup.add(markersGroup);
+    markersRef.current = [];
+
+    countriesData.forEach(country => {
+      const phi = (90 - country.lat) * (Math.PI / 180);
+      const theta = (country.lon + 180) * (Math.PI / 180);
+      const R = 2.0;
+      const pos = new THREE.Vector3(
+        -(R * Math.sin(phi) * Math.cos(theta)),
+        R * Math.cos(phi),
+        R * Math.sin(phi) * Math.sin(theta)
+      );
+      const ring = new THREE.Mesh(
+        new THREE.SphereGeometry(0.07, 20, 20),
+        new THREE.MeshBasicMaterial({ color: country.color, transparent: true, opacity: 0.55 })
+      );
+      ring.position.copy(pos);
+      ring.userData = country;
+      markersGroup.add(ring);
+      const dot = new THREE.Mesh(
+        new THREE.SphereGeometry(0.035, 16, 16),
+        new THREE.MeshBasicMaterial({ color: 0xffffff })
+      );
+      dot.position.copy(pos);
+      markersGroup.add(dot);
+
+      markersRef.current.push({ ring, dot, country });
+    });
+    scene.add(new THREE.AmbientLight(0x334466, 1.4));
+    const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+    sun.position.set(6, 4, 6);
+    scene.add(sun);
+    const rim = new THREE.DirectionalLight(0x4488ff, 0.5);
+    rim.position.set(-6, 0, -4);
+    scene.add(rim);
+    camera.position.set(3, 2.0, -6);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.6;
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.minPolarAngle = 0.4;
+    controls.maxPolarAngle = Math.PI - 0.4;
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    const getHit = (e) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      const rings = markersRef.current.map(m => m.ring);
+      const hits = raycaster.intersectObjects(rings);
+      return hits.length > 0 ? hits[0].object.userData : null;
     };
 
-    return (
-        <div className="home-page">
-            <div className="home-countries">
-                {Object.keys(countriesData).map((country, index) => (
-                    <button
-                        key={country}
-                        onClick={() => {
-                            setSelectedCountry(country);
-                            setHoveredPlace(null);
-                        }}
-                        className={`home-country-btn ${selectedCountry === country ? "active" : ""}`}
-                    >
-                        <span className="home-index">0{index + 1}</span>
-                        <span className="home-label">{country}</span>
-                    </button>
-                ))}
-            </div>
+    const onMove = (e) => setHovered(getHit(e));
+    const onClick = (e) => {
+      const hit = getHit(e);
+      if (hit) setSelected(prev => prev?.name === hit.name ? null : hit);
+    };
 
-            <div className="home-line"></div>
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('click', onClick);
+    let frame;
+    const animate = () => {
+      frame = requestAnimationFrame(animate);
+      controls.update();
 
-            {/* Centered Globe Container */}
-            <div className="home-globe-center">
-                <Globe3D width={650} height={650} />
-            </div>
+      const t = Date.now() * 0.003;
+      markersRef.current.forEach(({ ring, country }) => {
+        const isHov = hovered?.name === country.name;
+        const isSel = selected?.name === country.name;
+        const base = isSel ? 1.6 : isHov ? 1.3 : 1;
+        const pulse = base + Math.sin(t * 2) * 0.12;
+        ring.scale.setScalar(pulse);
+      });
+      renderer.render(scene, camera);
+    };
+    animate();
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener('resize', onResize);
 
-            <div className="home-places">
-                {countriesData[selectedCountry].map((place, index) => (
-                    <div
-                        key={place.id}
-                        className="home-place-item"
-                        onMouseEnter={() => setHoveredPlace(place)}
-                        onMouseLeave={() => setHoveredPlace(null)}
-                        onClick={() => navigate('/destinations')}
-                    >
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('click', onClick);
+      window.removeEventListener('resize', onResize);
+      renderer.dispose();
+    };
+  }, []);
 
-                        <div className={`home-img-popup ${hoveredPlace?.id === place.id ? "visible" : ""}`}>
-                            <div className="home-img-wrap">
-                                <img src={place.img} alt={place.name} />
-                            </div>
-                        </div>
+  return (
+    <div className="travelo-wrapper">
 
-                        <div className={`home-dot ${hoveredPlace?.id === place.id ? "active" : ""}`}></div>
+      <div className="trav-header">
+        <span className="trav-logo">✈ TRAVELO</span>
+      </div>
 
-                        <div className={`home-name ${hoveredPlace?.id === place.id ? "active" : ""}`}>
-                            <span className="home-place-label">{place.name}</span>
-                            <span className="home-place-index">0{index + 1}</span>
-                        </div>
+      {!selected && <div className="fixed-world">WORLD</div>}
 
-                    </div>
-                ))}
-            </div>
+
+      {hovered && !selected && (
+        <div className="hover-label" style={{ color: hovered.color }}>
+          {hovered.name}
         </div>
-    );
-}
+      )}
+
+
+      {selected && (
+        <div className="selected-country-bg" style={{ color: selected.color }}>
+          {selected.name}
+        </div>
+      )}
+
+      <div className={`globe-main ${selected ? 'shifted' : ''}`}>
+        <div ref={globeRef} />
+      </div>
+      {selected && (
+        <div className="city-sidebar">
+          <div className="sidebar-line" style={{ background: selected.color }} />
+          <p className="sidebar-country" style={{ color: selected.color }}>
+            {selected.name}
+          </p>
+          <p className="sidebar-sub">DESTINATIONS</p>
+          {selected.cities.map((city, i) => (
+            <div
+              key={i}
+              className="city-item"
+              style={{
+                animationDelay: `${i * 0.08}s`,
+                borderColor: selected.color + '33'
+              }}
+            >
+              <div
+                className="city-hover-area"
+                onMouseEnter={() => setHoveredCity(city)}
+                onMouseLeave={() => setHoveredCity(null)}
+              >
+                <div className="city-dot" style={{ background: selected.color }} />
+                <span className="city-name">{city.name}</span>
+
+                <div
+                  className={`city-preview ${hoveredCity?.name === city.name ? "active" : ""}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate("/destinations", {
+                      state: { id: city.id }
+                    });
+                  }}
+                >
+                  <img src={city.image} alt={city.name} />
+                </div>
+              </div>
+            </div>
+          ))}
+          <button className="back-btn" onClick={() => setSelected(null)}>
+            ← BACK TO WORLD
+          </button>
+        </div>
+      )}
+
+
+    </div>
+  );
+};
 
 export default Home;

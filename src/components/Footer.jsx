@@ -1,13 +1,6 @@
 import { Link } from "react-router-dom";
-import {
-    MapPin,
-    Phone,
-    Mail,
-    Facebook,
-    Twitter,
-    Instagram,
-    Linkedin
-} from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import "./Footer.css";
 
 export default function Footer() {
@@ -21,11 +14,20 @@ export default function Footer() {
                         <p className="footer-text">
                             Discovering the Middle Kingdom, one journey at a time.
                         </p>
+
                         <div className="social-icons">
-                            <link rel="stylesheet" href="https://www.facebook.com/" /><Facebook size={20} />
-                            <link rel="stylesheet" href="https://www.twitter.com/" /><Twitter size={20} />
-                            <link rel="stylesheet" href="https://www.instagram.com/" /><Instagram size={20} />
-                            <link rel="stylesheet" href="https://www.linkedin.com/" /><Linkedin size={20} />
+                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                                <FaFacebook />
+                            </a>
+                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                                <FaTwitter />
+                            </a>
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                                <FaInstagram />
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                                <FaLinkedin />
+                            </a>
                         </div>
                     </div>
 

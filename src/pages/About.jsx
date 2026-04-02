@@ -42,10 +42,11 @@ const infoColumns = [
 ];
 
 const team = [
-    { name: "Layla Hassan", role: "Founder & CEO", emoji: "👩‍💼", color: "#7c3aed", since: "2010" },
-    { name: "Omar Khalil", role: "Co-Founder & CTO", emoji: "👨‍💻", color: "#2563eb", since: "2010" },
-    { name: "Sara Yilmaz", role: "Brand Director", emoji: "👩‍🎨", color: "#0891b2", since: "2015" },
-    { name: "Ahmed Nour", role: "Head of Operations", emoji: "👨‍✈️", color: "#059669", since: "2018" },
+    { name: "Obay Ajlouni", role: "Project manager", emoji: "👨‍✈️", color: "#2563eb", since: "2024" },
+    { name: "Sedra Sheikh Alard", role: "Team leader", emoji: "👩‍💼", color: "#7c3aed", since: "2024" },
+    { name: "Liva ", role: "Web developer", emoji: "👩‍💼", color: "#0891b2", since: "2024" },
+    { name: "Elyas", role: "Web developer", emoji: "👨‍✈️", color: "#059669", since: "2024" },
+    { name: "Alaeddin Abdulhadi", role: "Web developer", emoji: "👨‍✈️", color: "#4a9337ff", since: "2024" },
 ];
 
 const mapLocations = [
