@@ -44,8 +44,8 @@ const infoColumns = [
 const team = [
     { name: "Obay Ajlouni", role: "Project manager", emoji: "👨‍✈️", color: "#2563eb", since: "2024" },
     { name: "Sedra Sheikh Alard", role: "Team leader", emoji: "👩‍💼", color: "#7c3aed", since: "2024" },
-    { name: "Liva ", role: "Web developer", emoji: "👩‍💼", color: "#0891b2", since: "2024" },
-    { name: "Elyas", role: "Web developer", emoji: "👨‍✈️", color: "#059669", since: "2024" },
+    { name: "Liwaa Alnassar", role: "Web developer", emoji: "👩‍💼", color: "#0891b2", since: "2024" },
+    { name: "Elyas Enayatullah", role: "Web developer", emoji: "👨‍✈️", color: "#059669", since: "2024" },
     { name: "Alaeddin Abdulhadi", role: "Web developer", emoji: "👨‍✈️", color: "#4a9337ff", since: "2024" },
 ];
 

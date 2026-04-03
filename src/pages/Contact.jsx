@@ -1,8 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react';
 import './Contact.css';
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: '',
+    });
+    const [status, setStatus] = useState('idle'); // idle, loading, success, error
+    const [responseMsg, setResponseMsg] = useState('');
+
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [id]: value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus('loading');
+
+        try {
+            const response = await fetch('http://localhost:5000/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setStatus('success');
+                setResponseMsg(data.message || 'Message sent successfully!');
+                setFormData({ name: '', email: '', message: '' });
+            } else {
+                setStatus('error');
+                setResponseMsg(data.message || 'Something went wrong.');
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setStatus('error');
+            setResponseMsg('Server unreachable. Please try again later.');
+        }
+    };
+
     return (
         <div className="contact-page">
             {/* Animated Background Orbs */}
@@ -47,29 +93,57 @@ const Contact = () => {
                             <MessageSquare className="form-header-icon" />
                             <h2>Send a Message</h2>
                         </div>
-                        <form onSubmit={(e) => e.preventDefault()}>
+                        <form onSubmit={handleSubmit}>
                             
                             {/* Material-style floating labels for vitality */}
                             <div className="input-group">
-                                <input type="text" id="name" required placeholder=" " />
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    required 
+                                    placeholder=" " 
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                />
                                 <label htmlFor="name">Full Name</label>
                                 <div className="input-glow-line"></div>
                             </div>
                             
                             <div className="input-group">
-                                <input type="email" id="email" required placeholder=" " />
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    required 
+                                    placeholder=" " 
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
                                 <label htmlFor="email">Email Address</label>
                                 <div className="input-glow-line"></div>
                             </div>
                             
                             <div className="input-group">
-                                <textarea id="message" required placeholder=" " rows="4"></textarea>
+                                <textarea 
+                                    id="message" 
+                                    required 
+                                    placeholder=" " 
+                                    rows="4"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                ></textarea>
                                 <label htmlFor="message">Your Message</label>
                                 <div className="input-glow-line"></div>
                             </div>
                             
-                            <button type="submit" className="neon-submit-btn">
-                                <span>Send Message</span>
+                            {status === 'success' && <p className="status-msg success">{responseMsg}</p>}
+                            {status === 'error' && <p className="status-msg error">{responseMsg}</p>}
+                            
+                            <button 
+                                type="submit" 
+                                className="neon-submit-btn" 
+                                disabled={status === 'loading'}
+                            >
+                                <span>{status === 'loading' ? 'Sending...' : 'Send Message'}</span>
                                 <Send size={18} className="send-icon" />
                             </button>
                         </form>
