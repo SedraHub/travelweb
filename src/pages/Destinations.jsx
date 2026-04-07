@@ -491,7 +491,9 @@ function Destinations() {
 
             <div className="dest-bg-text">TRAVELO</div>
         </div>
+
     );
+
 }
 
 export default Destinations;
