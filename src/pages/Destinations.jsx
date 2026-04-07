@@ -3,14 +3,14 @@ import "./Destinations.css";
 import { useLocation } from "react-router-dom";
 
 // Locally hosted high-fidelity 4K assets
-import imgCappadocia from '../assets/destinations/capadocia.webp';
+import imgCappadocia from '../assets/destinations/cappadocia.webp';
 import imgUzungol from '../assets/destinations/uzungol.webp';
 import imgAlUla from '../assets/destinations/al-ula.webp';
 import imgShebara from '../assets/destinations/shebara.webp';
-import imgZermatt from '../assets/destinations/ZERMATT.webp';
-import imgLakeComo from '../assets/destinations/LAKECOMO.webp';
-import imgMountFuji from '../assets/destinations/MOUNTFUJI.webp';
-import imgShibuya from '../assets/destinations/SHIBUYA.webp';
+import imgZermatt from '../assets/destinations/zermatt.webp';
+import imgLakeComo from '../assets/destinations/lakecomo.webp';
+import imgMountFuji from '../assets/destinations/mountfuji.webp';
+import imgShibuya from '../assets/destinations/shibuya.webp';
 import imgPosphorus from '../assets/destinations/bosphorus.webp';
 import imgAlDisah from '../assets/destinations/al-disah.webp';
 import imgGrindelwald from '../assets/destinations/grindelwald.webp';
